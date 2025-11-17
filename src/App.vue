@@ -1,30 +1,43 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import {computed, ref} from 'vue';
+import { data } from './data';
+
+const user_role = ref();
+
+const select_role = computed( ()=>{
+  if(user_role.value == 1) return 1;
+  if(user_role.value == 2) return 2;
+
+}
+
+)
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <h1>Please select that you are admin or normal user </h1>
+
+  <select  v-model="user_role"  class="form-select" aria-label="Default select example">
+    <option value="1">Admin</option>
+    <option value="2">Normal user</option>
+  </select>
+
+
+
+ <template v-if="select_role == 1">
+    <div   class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ data.name }}</h5>
+    <p class="card-text">{{ data.description }}</p>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+   </div>
+ </template>
+
+ <template v-if="select_role == 2">
+    <p>
+      As You are normal user you have not data 
+    </p>
+ </template>
+ 
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style scoped></style>
